@@ -12,4 +12,19 @@
     + 在router.js中引入并写路由匹配规则
     + router-view
 ##### 首页轮播图
+1. Mint-UI轮播图
+2. 图片加载  v-resource
+   + this.$http.get()
+   + 将获取到的数据保存在data中
+   + 使用v-for渲染
+##### 首页六宫格
+1. MUI中的grid-default
+2. 更改图标
 
+
+
+
+
+
+#####遇到的问题：
+1. 接口改变
