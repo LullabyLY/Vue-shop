@@ -15,7 +15,9 @@ var router = new VueRouter({
         {path:'/shopcar',component:shopcar},
         {path:'/search',component:search},
         {path:'/home/newsList',component:newsList},
-        {path:'/home/newsInfo/:id',component:newsInfo}
+        {path:'/home/newsInfo/:id',component:newsInfo,children:[
+
+            ]}
     ],
     linkActiveClass: 'mui-active'
 });

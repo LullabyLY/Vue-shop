@@ -7,12 +7,14 @@
         </p>
         <hr>
         <div class="content" v-html="newsinfo.content"></div>
-        <router-view></router-view>
+
+        <comment :id="this.id"></comment>
     </div>
 </template>
 
 <script>
     import { Toast } from 'mint-ui'
+    import comment from '../subcomponent/comment.vue'
     export default {
         data(){
             return {
@@ -33,6 +35,9 @@
                 }
                 })
             }
+        },
+        components:{
+            comment
         }
     }
 </script>
