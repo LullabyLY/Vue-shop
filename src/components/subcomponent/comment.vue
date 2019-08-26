@@ -2,8 +2,8 @@
     <div class="cmt-container">
         <h3>发表评论：</h3>
         <hr>
-        <textarea placeholder="请输入要评论的内容（最多120字）" maxlength="120"></textarea>
-        <mt-button type="primary" size="large">发表评论</mt-button>
+        <textarea placeholder="请输入要评论的内容（最多120字）" maxlength="120" v-model="msg"></textarea>
+        <mt-button type="primary" size="large" @click="postComment">发表评论</mt-button>
 
         <div class="cmt-list">
             <div class="cmt-item"  v-for="(item ,i) in commentList" :key="item.add_time">
@@ -24,7 +24,8 @@
         data(){
             return {
                 pageIndex:1,
-                commentList:[]
+                commentList:[],
+                msg:''
             }
         },
         props:['id'],
@@ -38,14 +39,32 @@
                         //this.commentList=result.body.message
                         this.commentList=this.commentList.concat(result.body.message)
                     } else{
-                        Toast('加载图片失败')
+                        Toast('加载评论失败')
                     }
                 })
 
             },
             getMore(){
-                this.pageIndex++
+                this.pageIndex++;
                 this.getComment()
+            },
+            postComment(){
+                if (this.msg.trim().length===0){
+                    return Toast('评论不能为空')
+                }
+                this.$http.post('api/postcomment/'+this.id,{content:this.msg.trim()}).then(result=>{
+                    if (result.body.status===0){
+                        var cmt={
+                            user_name:'匿名用户',
+                            add_time:Date.now(),
+                            content:this.msg.trim()
+                        };
+                        this.commentList.unshift(cmt);
+                        this.msg=''
+                    } else{
+                        Toast('评论失败')
+                    }
+                })
             }
         }
     }

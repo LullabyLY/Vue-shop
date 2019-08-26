@@ -39,8 +39,44 @@
        + 按钮绑定事件
        + 点击pageIndex+1，重新调用请求方法
        + 每当获取最新的评论数据的时候，不能覆盖老数据，要拼接数据(否则，新数据覆盖旧数据，永远是1楼到10楼)
-
-
-
+   + 发表评论功能
+       + 文本框数据双向绑定
+       + 按钮绑定事件
+       + 校验是否为空
+       + 提交评论至服务器
+       + 重新刷新列表，查看最新评论
+          + 如果调用getComment方法，可能得到的不是第一页评论，而且第一页评论得不到
+          + 换一种：当评论成功后，在客户端手动拼接出一个最新的评论对象，然后调用数组的`unshift`方法
+#### 图片分享
+1. 图片分享路由链接
+2. 绘制图片列表组件
+   + 顶部的滑动条(5个bug)，借助MUI中的tab-top-webview-main
+       1. 需要去掉mui-fullscreen类
+       2. 滑动条无法滑动，通过检查官方文档，该组件是一个JS组件，需要初始化
+           + 导入mui.js
+           + 调用官方提供的方式初始化
+           ````
+           mui('.mui-scroll-wrapper').scroll({
+                deceleration:0.0005
+            });
+           ````
+       3. 初始化滑动条导入mui.js报错：
+           ````
+           main.js:48314 Uncaught TypeError: 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them
+           ````
+           + 推测mui.js中用到了'caller', 'callee', and 'arguments' 东西，但是webpack打包好的bundle.js默认启用 严格模式，存在冲突
+           + 解决：1. 把mui.js中的非严格模式的代码改掉，不现实
+                   2. 禁用打包时的严格模式
+           + 移除严格模式：babel-plugin-transform-remove-strict-mode
+       4. 在home页面点击进入图片分享后，无法滑动，刷新后可滑动但是tabbar栏无法跳转
+           + 在mounted函数中初始化mui，滑动条滑动
+       5. 滑动条OK后，tabbar栏无法跳转
+           + 修改把每个tabber按钮上的样式mui-tab-item类，重新改名字
+       6. 从服务器获取分类列表
+           + 注意mui-active类，采用绑定class类，在其中使用三元表达式
+   + 制作图片列表
+       1. 图片懒加载：Mint-UI
+       2. 获取图片数据
 ##### 遇到的问题：
 1. 接口改变
+2. 对于模块引用比较迷
