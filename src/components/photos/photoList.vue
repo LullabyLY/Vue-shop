@@ -10,10 +10,14 @@
             </div>
         </div>
 
-        <ul>
-            <li v-for="item in list" :key="item.id">
+        <ul class="photo-list">
+            <router-link v-for="item in list" :key="item.id" :to="'/home/photoInfo/'+item.id" tag="li">
                 <img v-lazy="item.img_url">
-            </li>
+                <div class="info">
+                    <h1 class="info-title">{{item.title}}</h1>
+                    <div class="info-body">{{item.zhaiyao}}</div>
+                </div>
+            </router-link>
         </ul>
     </div>
 </template>
@@ -61,18 +65,44 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     *{
         touch-action: pan-y;
     }
-    img[lazy=loading] {
-        width: 100%;
-        height: 300px;
-        margin: auto;
-    }
-    ul{
+    .photo-list{
         list-style: none;
-        margin:0;
-        padding: 0;
+        margin: 0;
+        padding: 10px;
+        padding-bottom: 0;
+        li{
+            text-align: center;
+            background-color: #ccc;
+            margin-bottom: 10px;
+            box-shadow: 0 0 8px #999;
+            position: relative;
+            img{
+                width: 100%;
+                vertical-align: middle;
+            }
+            img[lazy=loading] {/*懒加载图片，不需更改*/
+                width: 40px;
+                height: 300px;
+                margin: auto;
+            }
+            .info{
+                position: absolute;
+                bottom: 0;
+                color: white;
+                text-align: left;
+                background-color: rgba(0,0,0,0.4);
+                max-height: 84px;
+                .info-title{
+                    font-size: 14px;
+                }
+                .info-body{
+                    font-size: 13px;
+                }
+            }
+        }
     }
 </style>
