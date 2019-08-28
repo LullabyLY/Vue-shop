@@ -21,6 +21,9 @@ import router from './router.js'
 import moment from 'moment'
 import VueResource from 'vue-resource'
 Vue.use(VueResource);
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview);
+
 Vue.http.options.root='http://www.liulongbin.top:3005';
 Vue.http.options.emulateJSON=true;
 Vue.filter('dataFormat',function (dataStr,pattern='YYYY-MM-DD HH:mm:ss') {

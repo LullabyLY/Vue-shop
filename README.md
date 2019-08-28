@@ -77,10 +77,33 @@
    + 制作图片列表
        1. 图片懒加载：Mint-UI LazyLoad
           + 按需加载不能显示懒加载效果。需要完整引入
-       2. 获取图片数据
-       
-       
-       
+          + 样式美化
+       2. 获取图片列表数据
+3. 图片点击跳转至详情
+    + li改为router-link，tag指定渲染为li   
+4. 详情页面布局
+    + 页面布局及美化
+    + 获取数据    
+    + 略缩图
+        1. 使用`vue-preview`插件
+        2. 获取图片列表，v-for渲染数据
+        3. img中的class不能去掉
+        4. 每个图片数据对象中必须有w，h属性
 ##### 遇到的问题：
 1. 接口改变
 2. 对于模块引用比较迷
+3. 使用vue-preview报错
+    + 可以显示略缩图，但是点击时失败
+    ````
+    Property or method "$preview" is not defined on the instance but referenced during render. Make sure that this property is reactive, either in the data option, 
+    or for class-based components, by initializing the property
+   ````
+   ````
+   Error in v-on handler: "TypeError: Cannot read property 'open' of undefined"
+   ````
+   ````
+   Cannot read property 'open' of undefined
+   ````
+$preview is not defined”这个错误的分析，“$preview is not defined”错误的原因是因为vue-preview插件的使用方法已经更新了，要根据不同版本的vue-preview使用对应的模板。我恍然大悟，立刻到GitHub中查询了一下最新的vue-preview，果然使用方法已经更新。
+此时问题已经明朗了，在项目中我安装的是最新版本的vue-preview，但是使用模板却是以前的，所以，解决方案无非降级法和升级法。
+
