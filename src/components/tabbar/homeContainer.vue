@@ -1,11 +1,7 @@
 <template>
     <div>
         <!--轮播图-->
-        <mt-swipe :auto="4000">
-            <mt-swipe-item v-for="item in lunboList" :key="item.id">
-                <img :src="item.img" alt="">
-            </mt-swipe-item>
-        </mt-swipe>
+        <swiper :lunboList="lunboList" :isfull="true"></swiper>
         <!--六宫格-->
         <ul class="mui-table-view mui-grid-view mui-grid-9">
             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link to="/home/newsList">
@@ -32,11 +28,15 @@
 
 <script>
     import {Toast} from 'mint-ui'
+    import swiper from '../subcomponent/swiper.vue'
     export default {
         data(){
             return {
                 lunboList:[]
             }
+        },
+        components:{
+            swiper
         },
         created(){
             this.getPicture();
@@ -56,24 +56,6 @@
 </script>
 
 <style lang="scss" scoped>
-    .mint-swipe{
-    height: 200px;
-    .mint-swipe-item{
-        &:nth-child(1){
-            background-color: red;
-        }
-        &:nth-child(2){
-            background-color: blue;
-        }
-        &:nth-child(3){
-            background-color: yellow;
-        }
-        img{
-            height: 100%;
-            width: 100%;
-        }
-    }
-}
     .mui-grid-view.mui-grid-9{
         background-color: #fff;
         border: none;
