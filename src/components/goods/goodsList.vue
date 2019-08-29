@@ -56,7 +56,7 @@
                 this.getGoodsList()
             },
             getDetail(id){
-                this.$router.push('/home/goodsInfo'+id)
+                this.$router.push('/home/goodsInfo/'+id)
             }
         }
     }

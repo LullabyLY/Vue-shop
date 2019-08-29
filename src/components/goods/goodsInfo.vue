@@ -1,5 +1,12 @@
 <template>
     <div class="goodsinfo-container">
+        <transition
+            @before-enter="beforeEnter"
+            @enter="enter"
+            @after-enter="afterEnter">
+            <div class="ball" v-show="ballFlag" ref="ball"></div>
+        </transition>
+
             <div class="mui-card">
                 <div class="mui-card-content">
                     <div class="mui-card-content-inner">
@@ -21,7 +28,7 @@
                         </p>
                         <p>
                             <mt-button type="primary" size="small">立即购买</mt-button>
-                            <mt-button type="danger" size="small">加入购物车</mt-button>
+                            <mt-button type="danger" size="small" @click="addToShopCar">加入购物车</mt-button>
                         </p>
                     </div>
                 </div>
@@ -38,7 +45,7 @@
                 </div>
                 <div class="mui-card-footer">
                     <mt-button type="primary" size="large" plain @click="goDesc(id)">图文介绍</mt-button>
-                    <mt-button type="danger" size="large" plain @change="goComment(id)">商品评论</mt-button>
+                    <mt-button type="danger" size="large" plain @click="goComment(id)">商品评论</mt-button>
                 </div>
             </div>
 
@@ -54,7 +61,8 @@
                 id:this.$route.params.id,
                 lunbotu:[],
                 goodsinfo:[],
-                count:1
+                count:1,
+                ballFlag:false
             }
         },
         components:{
@@ -89,6 +97,26 @@
             goComment(id){
                 this.$router.push({name:'goodscomment',params:{id}})
             },
+            addToShopCar(){
+                this.ballFlag=!this.ballFlag
+            },
+            beforeEnter(el){
+                el.style.transform='translate(0,0)'
+            },
+            enter(el,done){
+
+                const ball=this.$refs.ball.getBoundingClientRect();
+                const badge=document.getElementById('badge').getBoundingClientRect();
+                const x=badge.left-ball.left;
+                const y=badge.top-ball.top;
+                el.offsetHeight;
+                el.style.transform=`translate(${x}px,${y}px)`;//ES6语法
+                el.style.transition='all 0.8s ease';
+                done()
+            },
+            afterEnter(el){
+                this.ballFlag=!this.ballFlag
+            },
             getSelectCount(count){
                 this.count=count;
             }
@@ -112,6 +140,16 @@
             button {
                 margin: 15px 0;
             }
+        }
+        .ball{
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: red;
+            position: absolute;
+            z-index: 99;
+            top: 390px;
+            left: 146px;
         }
     }
 </style>

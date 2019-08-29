@@ -123,4 +123,6 @@
    ````
 $preview is not defined”这个错误的分析，“$preview is not defined”错误的原因是因为vue-preview插件的使用方法已经更新了，要根据不同版本的vue-preview使用对应的模板。我恍然大悟，立刻到GitHub中查询了一下最新的vue-preview，果然使用方法已经更新。
 此时问题已经明朗了，在项目中我安装的是最新版本的vue-preview，但是使用模板却是以前的，所以，解决方案无非降级法和升级法。
-
+4. 小球半场运动位移问题
+     + 不同环境位移不同：动态计算坐标值`domObject.getBoundingClientRect`可以获取元素距离页面顶部的值和左面的值
+     
