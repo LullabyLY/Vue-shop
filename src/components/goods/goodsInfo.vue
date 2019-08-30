@@ -118,7 +118,7 @@
                 this.ballFlag=!this.ballFlag
             },
             getSelectCount(count){
-                this.count=count;
+
             }
 
         }

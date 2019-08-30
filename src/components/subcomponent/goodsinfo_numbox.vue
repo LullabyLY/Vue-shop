@@ -15,7 +15,8 @@
         },
         methods:{
             countChange(){
-                this.$emit('getcount',this.$refs.numbox.value)
+                //给父组件传值
+                this.$emit('getcount',parseInt(this.$refs.numbox.value))
             }
         },
         watch:{
