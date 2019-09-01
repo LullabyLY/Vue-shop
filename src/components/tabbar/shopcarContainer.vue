@@ -4,7 +4,9 @@
             <div class="mui-card" v-for="(item,i) in goodslist" :key="item.id">
                 <div class="mui-card-content">
                     <div class="mui-card-content-inner">
-                        <mt-switch ></mt-switch>
+                        <mt-switch v-model="$store.getters.getGoodsSelected[item.id]"
+                                   @change="selectedChange(item.id,$store.getters.getGoodsSelected[item.id])">
+                        </mt-switch>
                         <img :src="item.thumb_path">
                         <div class="info">
                             <h3>{{item.title}}</h3>
@@ -20,8 +22,12 @@
         </div>
         <div class="mui-card">
             <div class="mui-card-content">
-                <div class="mui-card-content-inner">
-
+                <div class="mui-card-content-inner account">
+                    <div class="left">
+                        <p>总计：（不含运费）</p>
+                        <p>已勾选商品<span class="red">{{$store.getters.getCountAndAmount.count}}</span>件，总价：<span class="red">￥{{$store.getters.getCountAndAmount.amount}}</span></p>
+                    </div>
+                    <mt-button type="danger">去结算</mt-button>
                 </div>
             </div>
         </div>
@@ -60,6 +66,9 @@
             remove(id,index){
                 this.goodslist.splice(index,1);
                 this.$store.commit('removeLocal',id)
+            },
+            selectedChange(id,val){
+                this.$store.commit('updateSelected',{id:id,selected:val})
             }
         }
     }
@@ -82,6 +91,7 @@
                 font-size: 13px;
             }
             .info{
+                margin-left: 10px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -89,6 +99,16 @@
                     color: red;
                     font-weight: bold;
                 }
+            }
+        }
+        .account{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .red{
+                color: red;
+                font-weight: bold;
+                font-size: 16px;
             }
         }
     }
