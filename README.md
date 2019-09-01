@@ -112,8 +112,32 @@
          原因：max的值是异步获取的，当没得到的时候传给子组件就是undefined，不知道什么时候能够拿到max值
          解决：监听max，使用watch，总会有max数值的出现
          + 使用JS API 设置numbox最大值`setOptions()`
-7. 点击加入购物车 ，      
-
+7. 点击加入购物车 ， 购物车组件显示相同的
+    + 借助vuex ,将商品的信息放在state中
+    + 实现徽标数值更新  getters
+       + 刷新之后，购物车清零，运用，本地存储localStorge
+8. 绘制购物车页面    
+    + mui的card制作两个框（购物车框、价钱框）
+    + mintUI的switch框，还有shopcar的numbox框
+    + 获取数据渲染
+    + 购物车的数量和本地存储数量结合
+       + 可以先创建一个空对象，循环购物车中所有的商品数据，返回一个`id:count`形成的对象
+       ````
+       getGoodsCount(state){
+                  var o={};
+                  state.car.forEach(item=>{
+                      o[item.id]=item.count;
+                  });
+                  return o
+              }
+         ````
+         将count传给子组件numbox
+       + 问题：在购物车内增加或者减少，刷新后恢复为初始值
+          解决：每当购物车的数量改变时，将新的数量同步到store，覆盖旧的值，修改之后，将最新的数据保存在本地
+    + 实现删除功能
+       + 删除goodslist中的数据，删除本地存储的数据
+9. 绘制结算区域
+    +    
 
 
 

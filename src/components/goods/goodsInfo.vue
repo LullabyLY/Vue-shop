@@ -98,7 +98,9 @@
                 this.$router.push({name:'goodscomment',params:{id}})
             },
             addToShopCar(){
-                this.ballFlag=!this.ballFlag
+                this.ballFlag=!this.ballFlag;
+                var goods={id:this.id,count:this.count,price:this.goodsinfo.sell_price,selected:true};
+                this.$store.commit('addToCar',goods)
             },
             beforeEnter(el){
                 el.style.transform='translate(0,0)'
@@ -118,8 +120,9 @@
                 this.ballFlag=!this.ballFlag
             },
             getSelectCount(count){
+                this.count=count
+            },
 
-            }
 
         }
     }
